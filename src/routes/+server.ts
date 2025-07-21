@@ -1,13 +1,12 @@
 import { json, type RequestHandler } from "@sveltejs/kit";
+import { PROXY_SECRET } from "$env/static/private";
 
 export const POST: RequestHandler = async (event) => {
     const { request } = event;
     const { headers } = request;
-    const secret = headers.get('x-proxy-secret')
-    console.log({ secret })
+    const secret = request.headers.get('x-proxy-secret')
 
-    return json({ event: JSON.stringify(event, null, 2), headers, secret })
-    // if (!secret || secret !== 'Ennis01+') return json({ error: 'Unauthorized' }, { status: 403 });
+    if (!secret || secret !== PROXY_SECRET) return json({ error: 'Unauthorized' }, { status: 403 });
 
     // let bodyJSON;
     // try {
@@ -24,4 +23,6 @@ export const POST: RequestHandler = async (event) => {
     // const result = await response.json();
 
     // return result;
+
+    return json({ event: JSON.stringify(event, null, 2), headers, secret })
 }
