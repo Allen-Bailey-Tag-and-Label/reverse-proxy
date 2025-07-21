@@ -5,7 +5,7 @@ export const POST: RequestHandler = async (event) => {
     // const secret = request.headers.get('x-proxy-secret');
     // console.log({ secret });
 
-    return new Response(secret);
+    return json({ success: true })
     // if (!secret || secret !== 'Ennis01+') return json({ error: 'Unauthorized' }, { status: 403 });
 
     // let bodyJSON;
