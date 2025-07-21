@@ -2,21 +2,24 @@ import { json, type RequestHandler } from "@sveltejs/kit";
 
 export const POST: RequestHandler = async ({ request }) => {
     const secret = request.headers.get('x-proxy-secret');
-    if (!secret || secret !== 'Ennis01+') return json({ error: 'Unauthorized' }, { status: 403 });
+    console.log({ secret });
 
-    let bodyJSON;
-    try {
-        bodyJSON = await request.json();
-    } catch {
-        return json({ error: `Invalid JSON` }, { status: 400 })
-    }
+    return new Response(secret);
+    // if (!secret || secret !== 'Ennis01+') return json({ error: 'Unauthorized' }, { status: 403 });
 
-    const { url, method = "POST", headers = {}, body } = bodyJSON;
+    // let bodyJSON;
+    // try {
+    //     bodyJSON = await request.json();
+    // } catch {
+    //     return json({ error: `Invalid JSON` }, { status: 400 })
+    // }
 
-    if (!url || typeof url !== 'string' || !url.startsWith('https://')) return json({ error: 'Invalid or missing url' }, { status: 400 });
+    // const { url, method = "POST", headers = {}, body } = bodyJSON;
 
-    const response = await fetch(url, { method, headers, body });
-    const result = await response.json();
+    // if (!url || typeof url !== 'string' || !url.startsWith('https://')) return json({ error: 'Invalid or missing url' }, { status: 400 });
 
-    return result;
+    // const response = await fetch(url, { method, headers, body });
+    // const result = await response.json();
+
+    // return result;
 }
