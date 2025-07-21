@@ -51,6 +51,8 @@ export const POST: RequestHandler = async ({ request }) => {
         const contentType = proxiedResponse.headers.get('content-type') || '';
         const buffer = await proxiedResponse.arrayBuffer();
 
+        console.log(JSON.stringify({ url, method, headers, body: typeof body === 'string' ? body : JSON.stringify(body) }, null, 2))
+
         return new Response(buffer, {
             status: proxiedResponse.status,
             statusText: proxiedResponse.statusText,
