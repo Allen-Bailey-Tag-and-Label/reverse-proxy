@@ -22,7 +22,7 @@ export const POST: RequestHandler = async (event) => {
         const response = await fetch(url, { method, headers, body });
         return response;
     } catch (error) {
-        return json({ error })
+        return json({ error, url, headers, body })
     }
 
 }
