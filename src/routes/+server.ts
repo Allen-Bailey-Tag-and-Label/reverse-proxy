@@ -2,6 +2,7 @@ import { json, type RequestHandler } from "@sveltejs/kit";
 import { PROXY_SECRET } from '$env/static/private'
 
 export const POST: RequestHandler = async ({ request }) => {
+    console.log({ PROXY_SECRET })
     const secret = request.headers.get('x-proxy-secret');
     if (!secret || secret !== PROXY_SECRET) return json({ error: 'Unauthorized' }, { status: 403 });
 
