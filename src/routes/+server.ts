@@ -1,11 +1,10 @@
 import { json, type RequestHandler } from "@sveltejs/kit";
 
 export const POST: RequestHandler = async (event) => {
-    console.log(JSON.stringify(event, null, 2))
-    // const secret = request.headers.get('x-proxy-secret');
-    // console.log({ secret });
+    const { request } = event;
+    console.log({ request })
 
-    return json({ success: true })
+    return json({ event: JSON.stringify(event, null, 2) })
     // if (!secret || secret !== 'Ennis01+') return json({ error: 'Unauthorized' }, { status: 403 });
 
     // let bodyJSON;
