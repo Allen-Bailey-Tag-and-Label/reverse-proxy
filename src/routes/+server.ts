@@ -18,11 +18,13 @@ export const POST: RequestHandler = async (event) => {
 
     if (!url || typeof url !== 'string' || !url.startsWith('https://')) return json({ error: 'Invalid or missing url' }, { status: 400 });
 
-    return json({ url, method, headers, body })
+    try {
+        const response = await fetch(url, { method, headers, body });
+        const result = await response.json();
 
-    // const response = await fetch(url, { method, headers, body });
-    // const result = await response.json();
-
-    // return result;
+        return result;
+    } catch (error) {
+        return json({ error })
+    }
 
 }
